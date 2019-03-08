@@ -5,8 +5,12 @@
     "dev": "gulp watch"
   },
   "devDependencies": {
+    "bootstrap-sass": "^3.4.1",
     "gulp": "^3.9.1",
-    "laravel-elixir": "^5.0.0",
-    "bootstrap-sass": "^3.0.0"
+    "laravel-elixir": "^6.0.0-18"
+  },
+  "dependencies": {
+    "ncu": "^0.2.1",
+    "update": "^0.7.4"
   }
 }

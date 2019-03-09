@@ -9,6 +9,8 @@ use App\User;
 use App\Role;
 use App\Http\Requests\UsersRequest;
 use App\Photo;
+use App\Http\Requests\UsersEditRequest;
+use Illuminate\Support\Facades\Session;
 
 class AdminUsersController extends Controller
 {
@@ -30,6 +32,7 @@ class AdminUsersController extends Controller
         if($file = $request->file('photo')){
             $name = time().$file->getClientOriginalName();
             $photo = Photo::create(['file' => $name]);
+            $file->move('images', $name);
             $input['photo_id'] = $photo->id;
         }
         $input['password'] = bcrypt($request->password);
@@ -44,16 +47,31 @@ class AdminUsersController extends Controller
 
     public function edit($id)
     {
-        return view('admin.users.edit');
+        $user = User::findOrfail($id);
+        $roles = Role::lists('name','id')->all();
+        return view('admin.users.edit', compact('user', 'roles'));
     }
 
-    public function update(Request $request, $id)
+    public function update(UsersEditRequest $request, $id)
     {
-        //
+        $user = User::findOrFail($id);
+        $input = $request->all();
+        if($file = $request->file('photo')){
+            $name =time().$file->getClientOriginalName();
+            $file->move('images', $name);
+            $photo = Photo::create(['file'=>$name]);
+            $input['photo_id'] = $photo->id;
+        }
+        $user->update($input);
+        return redirect('/admin/users');
     }
 
     public function destroy($id)
     {
-        //
+        $user = User::findOrFail($id);
+        unlink(public_path().$user->photo->file);
+        $user->delete();
+        Session::flash('deleted_user', "The user is deleted successfully.");
+        return redirect('/admin/users');
     }
 }

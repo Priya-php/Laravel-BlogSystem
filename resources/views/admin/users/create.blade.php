@@ -42,7 +42,7 @@
    
    {!! Form::close() !!}
 
-   @include('includes.user_errors')
+   @include('includes.form_errors')
    
    
 @stop

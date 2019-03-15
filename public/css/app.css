@@ -2,4 +2,17 @@
   padding-top: 0;
 }
 
+td a i {
+  font-size: 25px;
+  margin: 0 15px;
+}
+
+i.edit {
+  color: #1d418f;
+}
+
+i.delete {
+  color: #b91f1f;
+}
+
 /*# sourceMappingURL=app.css.map */

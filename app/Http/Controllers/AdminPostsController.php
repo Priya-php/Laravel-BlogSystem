@@ -75,7 +75,7 @@ class AdminPostsController extends Controller
         $post = Post::findOrFail($id);
 
         if($post->photo_id){
-            unlink($post->photo->file);
+            unlink(public_path().$post->photo->file);
         }
         
         $post->delete();

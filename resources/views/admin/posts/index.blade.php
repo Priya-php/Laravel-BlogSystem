@@ -27,12 +27,12 @@
                   <td>{{$post->category ? $post->category->name : 'Uncategorized'}}</td>
                   <td><img src="{{$post->photo ? $post->photo->file : 'https://via.placeholder.com/70x50?text=No+Image'}}" alt="Post Photo" height="50"></td>
                   <td>{{$post->title}}</td>
-                  <td>{{$post->content}}</td>
+                  <td>{{str_limit($post->content, 20)}}</td>
                   <td>{{$post->created_at->diffForhumans()}}</td>
                   <td>{{$post->updated_at->diffForhumans()}}</td>
                   <td>
-                     <a href="{{route('admin.posts.edit', $post->id)}}">Edit</a>
-                     <a href="{{route('admin.posts.delete', $post->id)}}">Delete</a>
+                     <a href="{{route('admin.posts.edit', $post->id)}}"><i class="fa fa-pencil edit"></i></a>
+                     <a href="{{route('admin.posts.delete', $post->id)}}"><i class="fa fa-trash delete"></i></a>
                   </td>
                </tr>
             @endforeach

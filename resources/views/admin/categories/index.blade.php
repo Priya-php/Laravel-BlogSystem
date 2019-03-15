@@ -42,7 +42,7 @@
                   <td>{{$category->created_at}}</td>
                   <td>
                      <a href="{{route('admin.categories.edit',$category->id)}}"><i class="fa fa-pencil edit"></i></a>
-                     <a href="{{route('admin.categories.delete',$category->id)}}"><i class="fa fa-trash delete"></i></a>
+                     <a href="{{route('admin.categories.delete',$category->id)}}" class="deleteRequest"><i class="fa fa-trash delete"></i></a>
                   </td>
                </tr>
 

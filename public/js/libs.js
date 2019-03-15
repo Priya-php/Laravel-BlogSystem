@@ -238,7 +238,11 @@ $(document).ready(function(){
     //});
 
 
-
+    $('.deleteRequest').click(function(){
+        var action = confirm('Are You Sure? You Want To Delete?');
+        if(action) { return true;}
+        return false;
+    });
 
 
 

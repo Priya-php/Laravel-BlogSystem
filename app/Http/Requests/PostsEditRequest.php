@@ -25,7 +25,6 @@ class PostsEditRequest extends Request
     {
         return [
             'category_id' => 'required',
-            'photo' => 'required',
             'title' => 'required',
             'content' => 'required'
         ];

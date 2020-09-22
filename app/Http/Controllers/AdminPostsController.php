@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -11,18 +12,19 @@ use Illuminate\Support\Facades\Auth;
 use App\Photo;
 use App\Category;
 use App\Http\Requests\PostsEditRequest;
+use App\Comment;
 
 class AdminPostsController extends Controller
 {
    public function index()
     {
-        $posts = Post::all();
+        $posts = Post::paginate(5);
         return view('admin.posts.index', compact('posts'));
     }
 
     public function create()
     {
-        $categories = Category::lists('name', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
         return view('admin.posts.create', compact('categories'));
     }
 
@@ -50,7 +52,7 @@ class AdminPostsController extends Controller
     public function edit($id)
     {
         $post = Post::findOrFail($id);
-        $categories = Category::lists('name', 'id')->all();
+        $categories = Category::pluck('name', 'id')->all();
         return view('admin.posts.edit', compact('post','categories'));
     }
 
@@ -66,7 +68,8 @@ class AdminPostsController extends Controller
             $input['photo_id'] = $photo->id;
         }
 
-        $user->posts()->whereId($id)->first()->update($input);
+        // $user->posts()->whereId($id)->first()->update($input);
+        Post::whereId($id)->first()->update($input);
         return redirect('/admin/posts');
     }
 
@@ -81,5 +84,11 @@ class AdminPostsController extends Controller
         $post->delete();
 
         return redirect('/admin/posts');
+    }
+
+    public function post($slug){
+        $post = Post::findBySlugOrFail($slug);
+        $comments = Comment::wherePostId($post->id)->whereIsActive(1)->get();
+        return view('post', compact('post', 'comments'));
     }
 }

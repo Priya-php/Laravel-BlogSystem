@@ -1,5 +1,7 @@
 @extends('layouts.admin')
 
+@include('includes.tinyeditor')
+
 @section('content')
    <h1 class="page-header">Create Post</h1>
 
